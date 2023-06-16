@@ -1176,6 +1176,13 @@ class Tensor(torch._C._TensorBase):
         r"""
         round(self,dim,radius) -> RTensor
         Creates true (round) tensors.
+        ex:[
+        [0, 0, 0, 0, 0, 0, 0]
+        [0, 0, 1, 1, 1, 0, 0]
+        [0, 1, 1, 1, 1, 1, 0]
+        [0, 1, 1, 1, 1, 1, 0]
+        [0, 0, 1, 1, 1, 0, 0]
+        [0, 0, 0, 0, 0, 0, 0]]
         """
         cols = rows * 2 - 1
         round_tensor= [[0] * cols for _ in range(rows)]
