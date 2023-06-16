@@ -1171,6 +1171,28 @@ class Tensor(torch._C._TensorBase):
         return super().align_to(
             [name for name in names if not is_ellipsis(name)], ellipsis_idx
         )
+        
+    @classmethod
+    def round(self,dim,radius):
+        r"""
+        round(self,dim,radius) -> RTensor
+        Creates true (round) tensors.
+        """
+        cols = rows * 2 - 1
+        round_matrix = [[0] * cols for _ in range(rows)]
+        center_x = (cols - 1) / 2
+        center_y = (rows - 1) / 2
+        radius = min(center_x, center_y)
+
+        for i in range(rows):
+            for j in range(cols):
+                distance_x = j - center_x
+                distance_y = i - center_y
+                distance = math.sqrt(distance_x ** 2 + distance_y ** 2)
+                if distance <= radius:
+                    round_matrix[i][j] = 1
+
+        return round_matrix
 
     def unflatten(self, dim, sizes):
         r"""
